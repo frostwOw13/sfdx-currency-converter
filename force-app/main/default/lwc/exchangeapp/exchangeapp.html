@@ -1,0 +1,29 @@
+<template>
+  <div class='currency-layout'>
+    <div class='converter'>
+      <p if:false={currentRateSymbol}>Choose rate from right section</p>
+      <p if:true={currentRateSymbol}>Converting EUR to {currentRateSymbol}</p>
+      <input type='text' onchange={handleChange} class='converter-input'/>
+      <p if:true={resultValue}>{userValue} EUR = {resultValue} {currentRateSymbol}</p>
+      <button onclick={convertValues}>Convert</button>
+    </div>
+    <div class='currency-rate'>
+      <ul if:true={rates} class='rate-list'>
+        <template for:each={rates} for:item="rate">
+          <li key={rate.value} class='rate-item' onclick={newCurrentValue} data-rate={rate.symbol}>
+            {rate.symbol} - {rate.value}
+            <span key={rate.value} onclick={addToFavorites} data-rate={rate.symbol} class={rate.isFavorite}>✭</span>
+          </li>
+        </template>
+      </ul>
+      <button onclick={handleClick}>Get Data</button>
+      <div if:true={rates} class='pagination'>
+        <p class="center">Page {page}</p>
+        <div class='pagination-btns'>
+          <button onclick={handlePrevious}>Previous</button>
+          <button onclick={handleNext} class="right">Next</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
