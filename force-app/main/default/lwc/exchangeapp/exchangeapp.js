@@ -42,16 +42,17 @@ export default class Exchangeapp extends LightningElement {
   }
 
   newCurrentValue (e) {
-    let rateSymbol = event.target.dataset.rate;
+    let rateSymbol = e.target.dataset.rate;
     this.template.querySelectorAll('.rate-item').forEach((item) => item.classList.remove('active'));
-    e.toElement.classList.add('active')
+    console.log(e)
+    e.target.classList.add('active')
     this.currentRateSymbol = rateSymbol;
     this.convertValues();
   }
 
   addToFavorites (e) {
     e.stopPropagation();
-    let rateSymbol = event.target.dataset.rate;
+    let rateSymbol = e.target.dataset.rate;
     this.rates.forEach((rate) => {
       if (rate.symbol === rateSymbol) {
         if (rate.isFavorite === 'active') rate.isFavorite = '';
